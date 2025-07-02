@@ -31,7 +31,7 @@ const ResultDisplay = ({
         </div>
         <div className={styles.computerChoice}>
           <p>
-            Computer picked <strong>{userChoiceData.name.toUpperCase()}</strong>
+            Computer picked <strong>{computerChoiceData.name.toUpperCase()}</strong>
           </p>
           <img src={computerChoiceData.image} alt={computerChoiceData.name} />
         </div>
