@@ -6,14 +6,16 @@ const choices = ['rock', 'paper', 'scissors'] as const
 type Choice = (typeof choices)[number] | null
 type Result = 'win' | 'lose' | 'draw' | null
 
+const winSound = new Audio('/sounds/win.wav')
 const loseSound = new Audio('/sounds/lose.wav')
+const drawSound = new Audio('/sounds/draw.wav')
 
 function App() {
   const [userScore, setUserScore] = useState(0)
   const [computerScore, setComputerScore] = useState(0)
   const [userChoice, setUserChoice] = useState<Choice>(null)
   const [computerChoice, setComputerChoice] = useState<Choice>(null)
-  const [result, setResult] = useState<Result>('lose')
+  const [result, setResult] = useState<Result>(null)
 
   useEffect(() => {
     if (!userChoice) return
@@ -32,6 +34,7 @@ function App() {
   const determineWinner = (user: Choice, computer: Choice) => {
     if (user === computer) {
       setResult('draw')
+      drawSound.play()
       return
     }
 
@@ -42,6 +45,7 @@ function App() {
     ) {
       setResult('win')
       setUserScore((prevScore) => prevScore + 1)
+      winSound.play()
       return
     }
 
@@ -75,23 +79,63 @@ function App() {
         <RulesModal />
       </header>
 
+      <div className="scoreboard">
+        <div className="score user-score">
+          <h3>You</h3>
+          <p>{userScore}</p>
+        </div>
+        <div className="score-separator" />
+        <div className="score computer-score">
+          <h3>Computer</h3>
+          <p>{computerScore}</p>
+        </div>
+      </div>
+
       <main className="game-area">
-        {result && (
+        {!userChoice && (
+          <div className="choice-selection">
+            <p>Pick your choice</p>
+            <div className="choices-buttons">
+              {choices.map((choice) => (
+                <button
+                  key={choice}
+                  className="choice-btn"
+                  onClick={() => handleUserChoice(choice)}
+                  aria-label={`Choose ${choice}`}
+                >
+                  <img src={`/images/${choice}.svg`} alt={choice} />
+                  <span>{choice.toUpperCase()}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {userChoice && !computerChoice && (
+          <div className="waiting">
+            <p>Waiting for computer...</p>
+            <div className="spinner" />
+          </div>
+        )}
+
+        {result && userChoice && computerChoice && (
           <div className="result">
             <h2>{result === 'draw' ? 'Draw' : `You ${result}`}</h2>
             <div className="choices">
               <div className="user-choice">
-                <h3>Your Choice</h3>
-                <img
-                  src={`/images/${userChoice}.png`}
-                  alt={userChoice || 'No choice'}
-                />
+                <p>
+                  You picked <strong>{userChoice.toUpperCase()}</strong>
+                </p>
+                <img src={`/images/${userChoice}.svg`} alt={userChoice} />
               </div>
               <div className="computer-choice">
-                <h3>Computer's Choice</h3>
+                <p>
+                  Computer picked{' '}
+                  <strong>{computerChoice.toUpperCase()}</strong>
+                </p>
                 <img
-                  src={`/images/${computerChoice}.png`}
-                  alt={computerChoice || 'No choice'}
+                  src={`/images/${computerChoice}.svg`}
+                  alt={computerChoice}
                 />
               </div>
             </div>
