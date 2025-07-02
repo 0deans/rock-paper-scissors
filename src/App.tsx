@@ -1,28 +1,25 @@
 import { useEffect, useState } from 'react'
-import RulesModal from './components/RulesModal'
+import ChoiceSelection from './components/ChoiceSelection'
+import Header from './components/Header'
+import ResultDisplay from './components/ResultDisplay'
+import ScoreBoard from './components/Scoreboard'
+import { choicesArray, SOUNDS } from './constants/game'
+import type { Choice, GameResult } from './constants/game'
 import './App.css'
-
-const choices = ['rock', 'paper', 'scissors'] as const
-type Choice = (typeof choices)[number] | null
-type Result = 'win' | 'lose' | 'draw' | null
-
-const winSound = new Audio('/sounds/win.wav')
-const loseSound = new Audio('/sounds/lose.wav')
-const drawSound = new Audio('/sounds/draw.wav')
 
 function App() {
   const [userScore, setUserScore] = useState(0)
   const [computerScore, setComputerScore] = useState(0)
-  const [userChoice, setUserChoice] = useState<Choice>(null)
-  const [computerChoice, setComputerChoice] = useState<Choice>(null)
-  const [result, setResult] = useState<Result>(null)
+  const [userChoice, setUserChoice] = useState<Choice | null>(null)
+  const [computerChoice, setComputerChoice] = useState<Choice | null>(null)
+  const [result, setResult] = useState<GameResult | null>(null)
 
   useEffect(() => {
     if (!userChoice) return
 
     const timer = setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * choices.length)
-      const computerChoice = choices[randomIndex]
+      const randomIndex = Math.floor(Math.random() * choicesArray.length)
+      const computerChoice = choicesArray[randomIndex]
 
       determineWinner(userChoice, computerChoice)
       setComputerChoice(computerChoice)
@@ -34,7 +31,7 @@ function App() {
   const determineWinner = (user: Choice, computer: Choice) => {
     if (user === computer) {
       setResult('draw')
-      drawSound.play()
+      SOUNDS.draw.play()
       return
     }
 
@@ -45,13 +42,13 @@ function App() {
     ) {
       setResult('win')
       setUserScore((prevScore) => prevScore + 1)
-      winSound.play()
+      SOUNDS.win.play()
       return
     }
 
     setResult('lose')
     setComputerScore((prevScore) => prevScore + 1)
-    loseSound.play()
+    SOUNDS.lose.play()
   }
 
   const handleUserChoice = (choice: Choice) => {
@@ -66,50 +63,11 @@ function App() {
 
   return (
     <div className="wrapper">
-      <header className="header">
-        <a className="logo" href="/">
-          <img src="/favicon.svg" alt="logo" />
-          <div className="title">
-            <span>ROCK</span>
-            <span>PAPER</span>
-            <span>SCISSORS</span>
-          </div>
-        </a>
-
-        <RulesModal />
-      </header>
-
-      <div className="scoreboard">
-        <div className="score user-score">
-          <h3>You</h3>
-          <p>{userScore}</p>
-        </div>
-        <div className="score-separator" />
-        <div className="score computer-score">
-          <h3>Computer</h3>
-          <p>{computerScore}</p>
-        </div>
-      </div>
+      <Header />
+      <ScoreBoard userScore={userScore} computerScore={computerScore} />
 
       <main className="game-area">
-        {!userChoice && (
-          <div className="choice-selection">
-            <p>Pick your choice</p>
-            <div className="choices-buttons">
-              {choices.map((choice) => (
-                <button
-                  key={choice}
-                  className="choice-btn"
-                  onClick={() => handleUserChoice(choice)}
-                  aria-label={`Choose ${choice}`}
-                >
-                  <img src={`/images/${choice}.svg`} alt={choice} />
-                  <span>{choice.toUpperCase()}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        {!userChoice && <ChoiceSelection onChoice={handleUserChoice} />}
 
         {userChoice && !computerChoice && (
           <div className="waiting">
@@ -119,30 +77,12 @@ function App() {
         )}
 
         {result && userChoice && computerChoice && (
-          <div className="result">
-            <h2>{result === 'draw' ? 'Draw' : `You ${result}`}</h2>
-            <div className="choices">
-              <div className="user-choice">
-                <p>
-                  You picked <strong>{userChoice.toUpperCase()}</strong>
-                </p>
-                <img src={`/images/${userChoice}.svg`} alt={userChoice} />
-              </div>
-              <div className="computer-choice">
-                <p>
-                  Computer picked{' '}
-                  <strong>{computerChoice.toUpperCase()}</strong>
-                </p>
-                <img
-                  src={`/images/${computerChoice}.svg`}
-                  alt={computerChoice}
-                />
-              </div>
-            </div>
-            <button className="play-again-btn" onClick={handlePlayAgain}>
-              Play Again
-            </button>
-          </div>
+          <ResultDisplay
+            result={result}
+            userChoice={userChoice}
+            computerChoice={computerChoice}
+            onPlayAgain={handlePlayAgain}
+          />
         )}
       </main>
 

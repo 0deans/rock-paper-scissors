@@ -1,0 +1,99 @@
+.result {
+  text-align: center;
+  animation: scaleUp 0.5s;
+  max-width: 90%;
+}
+
+.playAgainBtn {
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.result h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.result .choices {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+.result .choices div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result .choices img {
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 0.5rem;
+}
+
+.result .choices p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.result .choices strong {
+  font-weight: bold;
+  color: #00ff00;
+}
+
+.result .choices .computerChoice strong {
+  color: #ff0000;
+}
+
+.result .choices .userChoice strong {
+  color: #00ff00;
+}
+
+.result .choices .computerChoice img {
+  filter: drop-shadow(0 0 0.5rem #ff0000aa);
+}
+
+.result .choices .userChoice img {
+  filter: drop-shadow(0 0 0.5rem #00ff00aa);
+}
+
+.result .playAgainBtn {
+  background-color: #646cff;
+  color: #fafafa;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.result .playAgainBtn:hover {
+  background-color: #5555ff;
+  color: #fafafa;
+}
+
+.result .playAgainBtn:focus,
+.result .playAgainBtn:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

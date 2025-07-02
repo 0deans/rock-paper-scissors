@@ -1,0 +1,36 @@
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  color: #ddd;
+  user-select: none;
+  margin-top: 1.5rem;
+}
+
+.score {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.score h3 {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+.score p {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.scoreSeparator {
+  width: 2px;
+  height: 48px;
+  background-color: #646cff;
+  border-radius: 2px;
+}
