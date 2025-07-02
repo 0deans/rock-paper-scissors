@@ -2,18 +2,35 @@
   display: flex;
   min-height: 100%;
   flex-direction: column;
+  align-items: center;
+  color: #fafafa;
+  background-color: #0a0a0a;
 }
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 1rem;
-  text-align: center;
-  color: #fafafa;
 }
 
-.header h1 {
+.logo {
+  display: flex;
+  margin: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.header img {
+  height: 3rem;
+  margin-right: 0.5rem;
+}
+
+.header .title {
+  display: flex;
   flex-direction: column;
-  font-size: 1.4rem;
-  color: #91C8E4;
+  line-height: 1;
+  font-size: 1rem;
 }
 
 .scoreboard {
@@ -38,12 +55,54 @@
 }
 
 .game-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   flex: 1 1 auto;
+}
+
+.result {
+  text-align: center;
+  animation: scaleUp 0.5s;
+}
+
+.play-again-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.result h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
 }
 
 .footer {
   padding: 1rem;
   text-align: center;
+}
+
+.header,
+.game-area,
+.footer {
+  max-width: 896px;
+  width: 100%;
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* 

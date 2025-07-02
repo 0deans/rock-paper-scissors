@@ -1,0 +1,84 @@
+.rules-button {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: #fff;
+  font-size: 1.125rem;
+  cursor: pointer;
+  padding: 0.6em 1.2em;
+  transition: border-color 0.25s;
+}
+
+.rules-button:hover {
+  border-color: #646cff;
+}
+.rules-button:focus,
+.rules-button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.rules-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rules-modal.enter {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rules-modal.exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rules-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.rules-modal-content {
+  position: relative;
+  background-color: #1a1a1a;
+  color: #fafafa;
+  border-radius: 12px;
+  max-width: 320px;
+  width: 90%;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rules-modal-content ul {
+  margin-top: 1rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.rules-modal-content button {
+  background-color: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.rules-modal-content button:hover {
+  background-color: #535bf2;
+}
+
+.rules-modal-content button:focus,
+.rules-modal-content button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
