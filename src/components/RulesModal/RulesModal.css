@@ -54,6 +54,21 @@
   width: 90%;
   padding: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.rules-modal.enter .rules-modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.rules-modal.exit .rules-modal-content {
+  transform: scale(0.8);
+  opacity: 0;
 }
 
 .rules-modal-content h2 {
